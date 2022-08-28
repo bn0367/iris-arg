@@ -47,6 +47,11 @@ let name: string = "";
 
 let keyReset = "";
 
+// this is the "login" page, where you enter your name and get access to the OS.
+// this page shouldn't ever do much other than display the console text.
+// TODO: spruce up the console text before you enter your name
+// TODO: maybe add glitch effects
+
 function Login() {
     const [, setConsoleText] = useState(consoleText);
     const [, setCookie] = useCookies([]);
