@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
+import hashes from "../typescript/SavedHashes";
 
 
 let timeWaster = "‍";
+
+let apiUrl = 'http://localhost:3001';
 
 function intersperse(str: string, amount: () => number): string {
     return str.split('').reduce((acc, cur,) => {
@@ -47,6 +50,10 @@ let name: string = "";
 let password: string = "";
 
 let loginState = -1;
+let accountExists = 0;
+
+const usernameRegex = /^[a-zA-Z0-9]{3,}$/;
+const passwordRegex = /^[a-zA-Z0-9 !@#$%^&*]{6,20}$/;
 
 // this is the "login" page, where you enter your name and get access to the OS.
 // this page shouldn't ever do much other than display the console text.
@@ -54,9 +61,25 @@ let loginState = -1;
 
 function Login() {
     const [ct, setConsoleText] = useState(consoleText);
-    const [, setCookie] = useCookies([]);
+    const [cookies, setCookie, delCookie] = useCookies<string>([]);
     const [cursorOffset, setCursorOffset] = useState(0);
-    const [pattern,] = useState("");
+    if ('token' in cookies) {
+        fetch(apiUrl + '/api/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: cookies.token
+            })
+        }).then(res => res.json()).then(res => {
+            if ('user' in res) {
+                window.location.href = '/os';
+            } else {
+                delCookie('token');
+            }
+        });
+    }
     useEffect(() => {
         setInterval(() => {
             if (allConsoleTextIdx < allConsoleText.length) {
@@ -72,7 +95,7 @@ function Login() {
                 <p className="console unselectable">
                     {ct}<span className="cursor" style={{marginLeft: `${cursorOffset * 9}px`}}>█</span>
                 </p>
-                <input autoFocus spellCheck={'false'} className={'hidden unselectable'} pattern={pattern}
+                <input autoFocus spellCheck={'false'} className={'hidden unselectable'}
                        onBlur={({target}) => target.focus()} type={'text'}
                        onInput={(e) => {
                            let text = (e.target as HTMLInputElement).value;
@@ -94,16 +117,61 @@ function Login() {
                            let element = e.target as HTMLInputElement;
                            if (e.key === "Enter") {
                                if (loginState === -1) {
-                                   if (name !== 'ben') { // TODO: api call to check if name isn't taken
-                                       loginState = 0;
-                                       (e.target as HTMLInputElement).value = "";
-                                       consoleText = consoleText.substring(0, consoleText.length - name.length);
-                                       allConsoleText += `${name}\nENTER PASSWORD> `;
-                                   } else {
-                                       toast.error("Username already taken", {position: 'top-center'});
+                                   if (!usernameRegex.test(name)) {
+                                       toast.error("Invalid username (must only contain letters and numbers, and be at least 3 characters long)");
+                                       return;
                                    }
+                                   fetch(apiUrl + '/api/user/' + name, {
+                                       method: 'GET',
+                                       headers: {
+                                           accept: 'application/json',
+                                       }
+                                   }).then(res => res.json()).then(res => {
+                                       if ('notFound' in res || !('user' in res)) {
+                                           loginState = 0;
+                                           (e.target as HTMLInputElement).value = "";
+                                           consoleText = consoleText.substring(0, consoleText.length - name.length);
+                                           allConsoleText += `${name}\nNEW USER DETECTED\nCREATE PASSWORD> `;
+                                           accountExists = 0;
+                                       } else {
+                                           loginState = 0;
+                                           (e.target as HTMLInputElement).value = "";
+                                           consoleText = consoleText.substring(0, consoleText.length - name.length);
+                                           allConsoleText += `${name}\nEXISTING USER DETECTED\nIF THIS IS NOT YOU PLEASE RELOAD OTHERWISE\nENTER PASSWORD> `;
+                                           accountExists = 1;
+                                       }
+                                   });
+
                                } else if (loginState === 0) {
-                                   console.log(password);
+                                   if (!passwordRegex.test(password)) {
+                                       toast.error("Invalid password: must only contain letters, numbers, or symbols (!@#$%^&* ) and be at least 6 characters long");
+                                       return;
+                                   }
+                                   let postUrl = accountExists === 1 ? apiUrl + '/api/login/' : apiUrl + '/api/register';
+                                   fetch(postUrl, {
+                                       method: 'POST',
+                                       headers: {
+                                           'Content-Type': 'application/json',
+                                       },
+                                       body: JSON.stringify({
+                                           user: name,
+                                           password: password,
+                                       })
+                                   }).then(res => res.json()).then(res => {
+                                       if ('message' in res && res.message !== "success") {
+                                           toast.error(res.message);
+                                       } else if ('token' in res) {
+                                           // @ts-ignore
+                                           setCookie('user', name, {path: '/'});
+                                           // @ts-ignore
+                                           setCookie(hashes['os'], true, {path: '/'});
+                                           // @ts-ignore
+                                           setCookie('token', res.token, {path: '/', maxAge: 60 * 60 * 24});
+                                           window.location.href = '/os';
+                                       } else {
+                                           toast.error("An unknown error occurred");
+                                       }
+                                   });
                                }
                            } else if (e.key === "Backspace" || e.key === "Delete") {
                                setCursorOffset((element.selectionStart as number) - element.value.length);
