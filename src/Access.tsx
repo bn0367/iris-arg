@@ -3,8 +3,8 @@ import {useCookies} from "react-cookie";
 import {useParams} from "react-router-dom";
 import Login from "./Pages/Login";
 import FourZeroFour from "./Pages/FourZeroFour";
-import OS from "./OS";
-import hashes from "./SavedHashes";
+import OS from "./Pages/OS";
+import hashes from "./typescript/SavedHashes";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.

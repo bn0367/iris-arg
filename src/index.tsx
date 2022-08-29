@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './CSS/index.scss';
 import Access from "./Access";
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './typescript/reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./Pages/Login";
 import FourZeroFour from "./Pages/FourZeroFour";

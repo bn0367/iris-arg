@@ -2,9 +2,14 @@
   white-space: pre-wrap;
   --glitch: 1;
   --timer: 1s;
-  font-family: Consolas, monospace;
-  font-size: medium;
   text-align: left;
+}
+
+body {
+  overflow: auto;
+  font-size: 16px;
+  font-family: Consolas, monospace;
+  height: available;
 }
 
 .cursor {
@@ -15,7 +20,6 @@
 
 .console {
   white-space: pre;
-  font-size: medium;
   color: #1e4474;
   display: inline-block;
 }
@@ -31,6 +35,19 @@
   height: 0.9em;
 }
 
+.hidden {
+  background: transparent;
+  border: none;
+  user-select: none;
+  outline: none;
+  pointer-events: none;
+}
+
+::selection {
+  background: transparent;
+  color: transparent;
+}
+
 .unselectable {
   user-select: none;
 }
@@ -43,7 +60,6 @@
 
 .App-header {
   background-color: #000000;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

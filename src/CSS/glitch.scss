@@ -2,6 +2,8 @@
   position: relative;
 }
 
+$steps: 50;
+
 .layers::before,
 .layers::after {
   content: attr(data-text);
@@ -452,3 +454,60 @@
   animation: paths 5s step-end infinite, opacity 5s step-end infinite,
   font 7s step-end infinite, movement 8s step-end infinite;
 }
+
+@keyframes textGlitch {
+  @for $i from 1 to $steps {
+    $per: 100% / $steps * $i;
+    $weight: (
+            100,
+            200,
+            300,
+            400,
+            500,
+            600,
+            700
+    );
+    $style: (
+            normal,
+            italic,
+            normal,
+            normal
+    );
+    $decor: (
+            none,
+            none,
+            line-through,
+            underline,
+            none,
+            none,
+            none
+    );
+    $trans: (
+            none,
+            none,
+            uppercase,
+            lowercase,
+            capitalize,
+            none,
+            none,
+            none,
+            none,
+            none,
+            none
+    );
+
+    $arrayW: random(7);
+    $arrayS: random(4);
+    $arrayD: random(7);
+    $arrayT: random(11);
+
+    #{$per} {
+      font-weight: nth($weight, $arrayW);
+      font-style: nth($style, $arrayS);
+      text-decoration: nth($decor, $arrayD);
+      text-transform: nth($trans, $arrayT);
+    }
+  }
+}
+
+

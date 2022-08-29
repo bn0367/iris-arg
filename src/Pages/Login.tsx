@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
-import hashes from "../SavedHashes";
+import toast, {Toaster} from "react-hot-toast";
 
 
 let timeWaster = "‍";
@@ -44,66 +44,74 @@ let allConsoleText: String =
 let consoleText: String = "";
 let allConsoleTextIdx: number = 0;
 let name: string = "";
+let password: string = "";
 
-let keyReset = "";
+let loginState = -1;
 
 // this is the "login" page, where you enter your name and get access to the OS.
 // this page shouldn't ever do much other than display the console text.
 // TODO: spruce up the console text before you enter your name
-// TODO: maybe add glitch effects
 
 function Login() {
-    const [, setConsoleText] = useState(consoleText);
+    const [ct, setConsoleText] = useState(consoleText);
     const [, setCookie] = useCookies([]);
+    const [cursorOffset, setCursorOffset] = useState(0);
+    const [pattern,] = useState("");
     useEffect(() => {
-        document.body.addEventListener("keydown", (e) => {
-            if (allConsoleTextIdx >= allConsoleText.length - 1) {
-                if (keyReset.length === 0) {
-                    keyReset = e.key;
-                    if (e.key === "Backspace") {
-                        consoleText = consoleText.slice(0, -1);
-                        name = name.slice(0, -1);
-                        setConsoleText(consoleText);
-                    } else if (e.key.toUpperCase() !== e.key.toLowerCase() && e.key.length === 1) {
-                        if (name.length < (39 - 14)) {
-                            consoleText += e.key.toUpperCase();
-                            name += e.key.toLowerCase();
-                            setConsoleText(consoleText);
-                        }
-                    } else if (e.key === "Enter") {
-                        // @ts-ignore ??? why is this not working?
-                        setCookie("name", name, {path: "/"});
-                        // @ts-ignore
-                        setCookie(hashes["os"], "true", {path: "/"});
-                        // redirect to OS
-                        window.location.href = "/os";
-                    }
-                }
-            }
-        });
-        document.body.addEventListener("keyup", (e) => {
-            if (e.key === keyReset) {
-                keyReset = "";
-            }
-        });
-
-        let interval = setInterval(() => {
+        setInterval(() => {
             if (allConsoleTextIdx < allConsoleText.length) {
                 consoleText += allConsoleText[allConsoleTextIdx];
                 allConsoleTextIdx++;
-            } else {
-                clearInterval(interval);
             }
             setConsoleText(consoleText);
         }, 0); // CHANGE TO 0 FOR DEBUGGING
-    }, []);
+    }, [setCookie, cursorOffset]);
     return (
         <div className="App">
             <header className="App-header">
                 <p className="console unselectable">
-                    {consoleText}<span className="cursor">█</span>
+                    {ct}<span className="cursor" style={{marginLeft: `${cursorOffset * 9}px`}}>█</span>
                 </p>
+                <input autoFocus spellCheck={'false'} className={'hidden unselectable'} pattern={pattern}
+                       onBlur={({target}) => target.focus()} type={'text'}
+                       onInput={(e) => {
+                           let text = (e.target as HTMLInputElement).value;
+                           if (loginState === -1) {
+                               name = text;
+
+                           } else if (loginState === 0) {
+                               password = text;
+                           }
+                           consoleText = allConsoleText + text;
+                           setConsoleText(consoleText as string);
+                       }}
+                       onSelect={(e) => {
+                           let element = e.target as HTMLInputElement;
+                           element.selectionStart = element.selectionEnd;
+                           setCursorOffset((element.selectionStart as number) - element.value.length);
+                       }}
+                       onKeyUp={(e) => {
+                           let element = e.target as HTMLInputElement;
+                           if (e.key === "Enter") {
+                               if (loginState === -1) {
+                                   if (name !== 'ben') { // TODO: api call to check if name isn't taken
+                                       loginState = 0;
+                                       (e.target as HTMLInputElement).value = "";
+                                       consoleText = consoleText.substring(0, consoleText.length - name.length);
+                                       allConsoleText += `${name}\nENTER PASSWORD> `;
+                                   } else {
+                                       toast.error("Username already taken", {position: 'top-center'});
+                                   }
+                               } else if (loginState === 0) {
+                                   console.log(password);
+                               }
+                           } else if (e.key === "Backspace" || e.key === "Delete") {
+                               setCursorOffset((element.selectionStart as number) - element.value.length);
+                           }
+                       }}
+                />
             </header>
+            <Toaster/>
         </div>
     );
 }
