@@ -4,12 +4,13 @@ import "../CSS/glitch.scss";
 import "../CSS/OS.scss";
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
+import debug from "../typescript/DEBUG";
 
 
 // this will be the "main hub": where all of the puzzles are stored, as well as the completion state
 // TODO: add puzzles
 
-let apiUrl = 'http://208.102.191.33:3001';
+let apiUrl = debug ? 'http://localhost:3001' : 'http://208.102.191.33:3001';
 
 let chatMessage = "";
 
@@ -21,6 +22,7 @@ function OS() {
 
     useEffect(() => {
         let interval = setInterval(async () => {
+            console.log('polling');
             const res = await fetch(apiUrl + "/api/chat/poll", {
                 method: "post",
                 headers: {
@@ -31,6 +33,7 @@ function OS() {
             const data = await res.json();
             if (data.length > 0) {
                 setMessages(data);
+                console.log(messages.length);
             }
         }, 1000);
         return () => clearInterval(interval);
@@ -38,10 +41,14 @@ function OS() {
     return (
         <>
             <div className={'chatarea'}>
-                <div className={'chat window'} style={{width: '98.87%'}}>
+                <div className={'chat window'}>
                     <p className={'title message'}>CHAT</p>
-                    <hr style={{width: '100%'}}/>
+                    <hr className={'line'}/>
                     <div className={'messages'}>
+                        {Array.apply(null, Array(10 - messages.length)).map((_, i) => {
+                            console.log('hello');
+                            return <div className={'message'} key={10 - i}>&nbsp;</div>
+                        })}
                         {messages.map((message, index) => {
                             return <div key={index}
                                         className={'message'}>[{new Date(message['time']).toLocaleTimeString("en-US", {
@@ -50,7 +57,7 @@ function OS() {
                             })}] &lt;{message['user']}&gt;: {message['message']}</div>
                         })}
                     </div>
-                    <hr style={{width: '100%'}}/>
+                    <hr className={'line'}/>
                     <p className={'message'}>&gt; {ct}<span className="cursor"
                                                             style={{marginLeft: `${cursorOffset * 9}px`}}>█</span>
                     </p>
@@ -101,15 +108,45 @@ function OS() {
                 </div>
             </div>
             <div className={'otherarea'}>
-                <div className={'window'}><p>
+                <div className={'flexd'}>
+                    <div className={'window'}><h1 className={'critical'}>REACTOR STATUS: CRITICAL</h1>
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
+                    <div className={'window'}>
+                        <p className={'title message'}>SYSTEM LOG</p>
+                        <hr className={'line'}/>
+                        HELLO?????
+                    </div>
 
-                </p></div>
-                <div className={'window'}><h1 className={'critical'}>REACTOR STATUS: CRITICAL</h1>
-                </div>
-                <div className={'window'}>
-                    <p className={'title message'}>SYSTEM LOG</p>
-                    <hr style={{width: '100%'}}/>
-                    HELLO?????
                 </div>
             </div>
         </>

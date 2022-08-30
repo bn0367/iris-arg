@@ -14,6 +14,7 @@ const SALT_ROUNDS = 10;
 const TOKEN_EXPIRY = '24h';
 const HISTORY_LIMIT = 10;
 const CHAT_COOLDOWN = 5000;
+const CHAT_MESSAGE_LIMIT = 128;
 
 
 app.use(bodyParser.json());
@@ -158,6 +159,10 @@ app.post('/api/chat/send', async (req, res) => {
             // make sure the user hasn't sent another chat message in the past second
             if (chat_history.find(item => item.user === user && item.time > Date.now() - CHAT_COOLDOWN)) {
                 res.status(400).send({"message": "You can only send one message every 5 seconds"});
+                return;
+            }
+            if (message.length > CHAT_MESSAGE_LIMIT) {
+                res.status(400).send({"message": `Message is ${message.length - CHAT_MESSAGE_LIMIT} characters too long`});
                 return;
             }
             if (chat_history.length >= HISTORY_LIMIT) {

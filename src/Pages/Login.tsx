@@ -3,11 +3,12 @@ import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import hashes from "../typescript/SavedHashes";
+import debug from "../typescript/DEBUG";
 
 
 let timeWaster = "‍";
 
-let apiUrl = 'http://208.102.191.33:3001';
+let apiUrl = debug ? 'http://localhost:3001' : 'http://208.102.191.33:3001';
 
 function intersperse(str: string, amount: () => number): string {
     return str.split('').reduce((acc, cur,) => {
@@ -63,23 +64,26 @@ function Login() {
     const [ct, setConsoleText] = useState(consoleText);
     const [cookies, setCookie, delCookie] = useCookies<string>([]);
     const [cursorOffset, setCursorOffset] = useState(0);
-    if ('token' in cookies) {
-        fetch(apiUrl + '/api/token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                token: cookies.token
-            })
-        }).then(res => res.json()).then(res => {
-            if ('user' in res) {
-                window.location.href = '/os';
-            } else {
-                delCookie('token');
-            }
-        });
-    }
+    useEffect(() => {
+        if ('token' in cookies) {
+            console.log('hello?/?/');
+            fetch(apiUrl + '/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    token: cookies.token
+                })
+            }).then(res => res.json()).then(res => {
+                if ('user' in res) {
+                    window.location.href = '/os';
+                } else {
+                    delCookie('token');
+                }
+            });
+        }
+    }, [cookies, delCookie]);
     useEffect(() => {
         setInterval(() => {
             if (allConsoleTextIdx < allConsoleText.length) {
