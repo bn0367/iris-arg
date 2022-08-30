@@ -7,7 +7,7 @@ import hashes from "../typescript/SavedHashes";
 
 let timeWaster = "‍";
 
-let apiUrl = 'http://localhost:3001';
+let apiUrl = 'http://208.102.191.33:3001';
 
 function intersperse(str: string, amount: () => number): string {
     return str.split('').reduce((acc, cur,) => {
@@ -115,7 +115,7 @@ function Login() {
                        }}
                        onKeyUp={(e) => {
                            let element = e.target as HTMLInputElement;
-                           if (e.key === "Enter") {
+                           if (e.key.toLowerCase() === "enter" || e.key.toLowerCase() === "return") {
                                if (loginState === -1) {
                                    if (!usernameRegex.test(name)) {
                                        toast.error("Invalid username (must only contain letters and numbers, and be at least 3 characters long)");

@@ -40,6 +40,7 @@ app.get('/api/user/:user', (req, res) => {
         res.status(400).send({"message": "Invalid user"});
         return;
     }
+    console.log(`[USER] ${user} looked up`);
     db.get(user, (err, value) => {
             if (err) {
                 res.send(err);
@@ -54,6 +55,7 @@ app.get('/api/user/:user', (req, res) => {
 });
 
 app.post('/api/token', (req, res) => {
+    console.log(`[TOKN] token verification request`);
     let token;
     try {
         token = req.body.token;
@@ -96,6 +98,7 @@ app.post('/api/register', async (req, res) => {
                             res.send(err);
                         } else {
                             res.send({message: "success", token: generateToken({user: user})});
+                            console.log(`[AUTH] ${user} registered`);
                         }
                     }
                 );
@@ -123,6 +126,7 @@ app.post('/api/login', async (req, res) => {
                 const user = JSON.parse(value);
                 if (await bcrypt.compare(password, user.password)) {
                     res.send({message: 'success', token: generateToken({user: user.user})});
+                    console.log(`[AUTH] ${user.user} logged in`);
                 } else {
                     res.status(400).send({"message": "Incorrect password"});
                 }
@@ -132,6 +136,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/chat/poll', (req, res) => {
+    //console.log('[CHAT] history polled'); // this gets super spammy
     res.send(chat_history);
 });
 
@@ -158,11 +163,14 @@ app.post('/api/chat/send', async (req, res) => {
             if (chat_history.length >= HISTORY_LIMIT) {
                 chat_history.shift();
             }
-            chat_history.push({user: user, message: filter.clean(message), time: Date.now()});
+            chat_history.push({user: user, message: message, time: Date.now()});
+            console.log(`[CHAT] ${user} said: ${message}`);
             res.send({message: 'success'});
         }
     });
 
 });
+
+// TODO: find new filter system
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -19,7 +19,7 @@ function pages(path: string) {
 }
 
 function Access() {
-    const [cookies,,] = useCookies([]);
+    const [cookies, ,] = useCookies([]);
     let {path} = useParams();
     if (path === undefined) {
         return <FourZeroFour/>;
@@ -27,8 +27,10 @@ function Access() {
     if (path in hashes) {
         if (hashes[path] in cookies) {
             return pages(path as string);
-        } else {
+        } else if (path !== 'os') {
             return <FourZeroFour/>;
+        } else {
+            return <Login/>;
         }
     }
     return <FourZeroFour/>;
