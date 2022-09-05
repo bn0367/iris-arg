@@ -131,7 +131,6 @@
 .fbutton {
   display: flex;
   top: 2%;
-  left: 0;
   position: relative;
   padding: 0.5em;
   border: 1px solid #fff;
@@ -249,4 +248,70 @@ th, td {
   bottom: 0;
   right: 0;
   text-decoration: underline;
+}
+
+.animwindow {
+  opacity: 0;
+  animation: blipin 2s ease-in-out forwards 1;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+@keyframes blipin {
+  0% {
+    visibility: hidden;
+    color: transparent;
+    opacity: 1;
+    transform: scale(0, 0.1);
+  }
+  50% {
+    color: transparent;
+    opacity: 1;
+    transform: scale(1, 0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+  max-width: 10%;
+  min-width: 10%;
+  border: 0 solid #fff;
+  border-radius: 5em;
+}
+
+.animwindow > * {
+  opacity: 0;
+  display: none;
+}
+
+.hidden > * {
+  opacity: 0;
+  display: none;
+}
+
+.close {
+  color: #fff;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

@@ -4,6 +4,7 @@ export default function Disclaimer() {
     return (
         <div className="window fill" style={{overflowY: 'hidden'}}>
             <h1>Disclaimer</h1>
+            <h2>This is an ARG.</h2>
             <p style={{whiteSpace: 'pre-line'}}>
                 Any company names referred to on this website are not affiliated with or endorsed by the real companies,
                 should one by that name exist in the real world. Any resemblance to real persons, living or dead, is

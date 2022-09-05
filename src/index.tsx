@@ -7,12 +7,13 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./Pages/Login";
 import FourZeroFour from "./Pages/FourZeroFour";
 import {CookiesProvider} from "react-cookie";
+import debug from "./typescript/DEBUG";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-export const apiUrl = 'https://34.133.38.220:3001';
+export const apiUrl = debug ? 'http://localhost:3001' : 'https://34.133.38.220:3001';
 
 root.render(
     <React.StrictMode>

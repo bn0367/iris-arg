@@ -4,6 +4,7 @@ import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import {hashes} from "../typescript/SavedHashes";
 import {apiUrl} from "../index";
+import debug from "../typescript/DEBUG";
 
 
 let timeWaster = "‍";
@@ -91,7 +92,7 @@ function Login() {
                 allConsoleTextIdx++;
             }
             setConsoleText(consoleText);
-        }, 10); // CHANGE TO 0 FOR DEBUGGING
+        }, debug ? 0 : 10); // CHANGE TO 0 FOR DEBUGGING
     }, [setCookie, cursorOffset]);
     return (
         <div className="App">
