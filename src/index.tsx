@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-export const apiUrl = '0.0.0.0:3001';
+export const apiUrl = 'http://34.133.38.220:3001';
 
 root.render(
     <React.StrictMode>

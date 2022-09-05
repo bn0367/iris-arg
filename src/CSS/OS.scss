@@ -90,11 +90,11 @@
   user-select: none;
 }
 
-.blink {
-  animation: blink 1.5s infinite alternate;
+.pulse {
+  animation: pulse 1.5s infinite alternate;
 }
 
-@keyframes blink {
+@keyframes pulse {
   from {
     color: red
   }

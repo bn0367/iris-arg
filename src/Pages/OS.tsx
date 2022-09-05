@@ -17,7 +17,6 @@ function OS() {
 
     useEffect(() => {
         let interval = setInterval(async () => {
-            console.log('polling');
             const res = await fetch(apiUrl + "/api/chat/poll", {
                 method: "post",
                 headers: {
@@ -28,7 +27,6 @@ function OS() {
             const data = await res.json();
             if (data.length > 0) {
                 setMessages(data);
-                console.log(messages.length);
             }
         }, 1000);
         return () => clearInterval(interval);
@@ -40,7 +38,6 @@ function OS() {
                     <p className={'title message'}>CHAT</p>
                     <div className={'messages'}>
                         {Array.apply(null, Array(10 - messages.length)).map((_, i) => {
-                            console.log('hello');
                             return <div className={'message'} key={10 - i}>&nbsp;</div>
                         })}
                         {messages.map((message, index) => {
@@ -88,7 +85,6 @@ function OS() {
                                                setChatText("");
                                                setCursorOffset(0);
                                            } else {
-                                               console.log('else');
                                                toast.error(res.message);
                                            }
                                        });
@@ -122,7 +118,7 @@ function OS() {
                     <hr className={'line'}/>
                     <div className={'fbutton'}>READ</div>
                 </div>
-                <div className={'window reactor'}><h1 className={'critical blink'}>REACTOR STATUS: OFFLINE</h1></div>
+                <div className={'window reactor'}><h1 className={'critical pulse'}>REACTOR STATUS: OFFLINE</h1></div>
 
             </div>
         </>
