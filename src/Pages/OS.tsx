@@ -5,6 +5,7 @@ import "../CSS/OS.scss";
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import debug from "../typescript/DEBUG";
+import hashes from "../typescript/SavedHashes";
 
 
 // this will be the "main hub": where all of the puzzles are stored, as well as the completion state
@@ -16,7 +17,7 @@ let chatMessage = "";
 
 function OS() {
     const [ct, setChatText] = useState("");
-    const [cookies,] = useCookies();
+    const [cookies, setCookie,] = useCookies();
     const [cursorOffset, setCursorOffset] = useState(0);
     const [messages, setMessages] = useState([]);
 
@@ -43,7 +44,6 @@ function OS() {
             <div className={'chatarea'}>
                 <div className={'chat window'}>
                     <p className={'title message'}>CHAT</p>
-                    <hr className={'line'}/>
                     <div className={'messages'}>
                         {Array.apply(null, Array(10 - messages.length)).map((_, i) => {
                             console.log('hello');
@@ -107,50 +107,32 @@ function OS() {
                     <Toaster/>
                 </div>
             </div>
-            <div className={'otherarea'}>
-                <div className={'flexd'}>
-                    <div className={'window'}><h1 className={'critical'}>REACTOR STATUS: CRITICAL</h1>
+            <div className={'otherarea flexd'}>
+                <div className={'window'}>
+                    <p className={'title message'}>EMPLOYEE DIRECTORY</p>
+                    <hr className={'line'}/>
+                    <div className={'fbutton'} onClick={
+                        () => {
+                            setCookie(hashes['os-employees'], true);
+                            window.location.href = '/os-employees';
+                        }}>BROWSE
                     </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-                    <div className={'window'}>
-                        <p className={'title message'}>SYSTEM LOG</p>
-                        <hr className={'line'}/>
-                        HELLO?????
-                    </div>
-
                 </div>
+                <div className={'window'}>
+                    <p className={'title message'}>SYSTEM LOGS</p>
+                    <hr className={'line'}/>
+                    <div className={'fbutton'}>ACCESS</div>
+                </div>
+                <div className={'window'}>
+                    <p className={'title message'}>OPERATION MANUALS</p>
+                    <hr className={'line'}/>
+                    <div className={'fbutton'}>READ</div>
+                </div>
+                <div className={'window reactor'}><h1 className={'critical blink'}>REACTOR STATUS: OFFLINE</h1></div>
+
             </div>
         </>
-    )
+    );
 }
 
 export default OS;

@@ -2,16 +2,9 @@
   white-space: pre;
   font-family: Consolas monospace !important;
   display: flex;
+  overflow: hidden;
 }
 
-.timer {
-  font-size: 3em;
-  font-weight: bold;
-  color: #fff;
-  background-color: #000;
-}
-
-// stop chatarea from rendering over everything else on the page
 .chatarea {
   display: block;
 }
@@ -27,11 +20,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1%;
+  width: 98%;
 }
 
 .flexd > .window {
   margin: 1em;
-  flex: 1;
+  flex: 1 1 30%;
 }
 
 .chat {
@@ -39,12 +35,12 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  min-height: 14.5em;
+  min-height: 16em;
   height: 40%;
   background-color: #000;
   white-space: pre-wrap;
   justify-content: flex-end;
-  max-height: 40%;
+  max-height: 16em;
   width: 100%;
   flex-direction: column;
 }
@@ -58,6 +54,7 @@
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .message {
@@ -93,6 +90,19 @@
   user-select: none;
 }
 
+.blink {
+  animation: blink 1.5s infinite alternate;
+}
+
+@keyframes blink {
+  from {
+    color: red
+  }
+  to {
+    color: gray
+  }
+}
+
 .line {
   border: none;
   border-top: 1px solid #fff;
@@ -102,21 +112,141 @@
   line-height: 1px;
 }
 
-// should be in the top right corner of its parent (NOT the screen)
+// move title down further
 .title {
-  display: block;
-  float: top;
+  display: flex;
   position: sticky;
   background-color: #000;
   color: #fff;
   font-size: 1.5em;
   font-weight: bold;
   padding: 0.1em;
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 .critical {
   color: #ff0000;
-
 }
 
+.fbutton {
+  display: flex;
+  top: 2%;
+  left: 0;
+  position: relative;
+  padding: 0.5em;
+  border: 1px solid #fff;
+  border-radius: 0.25em;
+  margin: 0.5em;
+  cursor: pointer;
+  user-select: none;
+  align-content: center;
+  justify-content: center;
+}
+
+.fbutton:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.fbutton:active {
+  background-color: #000;
+  color: #fff;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0.75;
+}
+
+.reactor {
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill {
+  top: 5%;
+  left: 5%;
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 90%;
+  min-height: 90%;
+  max-height: 90%;
+  max-width: 90%;
+  overflow-clip: padding-box;
+}
+
+.corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.directory {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+  min-width: 100%;
+}
+
+tr:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+tbody > tr {
+  display: flex;
+  min-width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+thead > tr {
+  display: flex;
+  min-width: 100%;
+  flex-direction: row;
+  justify-content: left;
+  align-items: flex-start;
+  flex: 1 1 33%;
+  text-align: left;
+}
+
+tbody {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  min-width: 100%;
+}
+
+thead {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+th, td {
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5em;
+  flex: 1 1 33%;
+  max-width: 100%;
+}
+
+.disclaimer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-decoration: underline;
+}

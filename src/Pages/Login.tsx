@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
-import hashes from "../typescript/SavedHashes";
+import {hashes} from "../typescript/SavedHashes";
 import debug from "../typescript/DEBUG";
 
 
@@ -52,6 +52,7 @@ let password: string = "";
 
 let loginState = -1;
 let accountExists = 0;
+let verifyRequest = false;
 
 const usernameRegex = /^[a-zA-Z0-9]{3,}$/;
 const passwordRegex = /^[a-zA-Z0-9 !@#$%^&*]{6,20}$/;
@@ -65,8 +66,8 @@ function Login() {
     const [cookies, setCookie, delCookie] = useCookies<string>([]);
     const [cursorOffset, setCursorOffset] = useState(0);
     useEffect(() => {
-        if ('token' in cookies) {
-            console.log('hello?/?/');
+        if ('token' in cookies && !verifyRequest) {
+            verifyRequest = true;
             fetch(apiUrl + '/api/token', {
                 method: 'POST',
                 headers: {
@@ -77,6 +78,7 @@ function Login() {
                 })
             }).then(res => res.json()).then(res => {
                 if ('user' in res) {
+                    verifyRequest = false;
                     window.location.href = '/os';
                 } else {
                     delCookie('token');

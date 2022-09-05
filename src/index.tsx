@@ -20,6 +20,8 @@ root.render(
                     <Route path={"/404"} element={<FourZeroFour/>}/>
                     <Route path={":path"} element={<Access/>}/>
                 </Routes>
+                <p className={'disclaimer message'} onClick={() => window.location.href = '/disclaimer'}
+                   style={{cursor: 'pointer'}}>disclaimer</p>
             </BrowserRouter>
         </CookiesProvider>
     </React.StrictMode>
