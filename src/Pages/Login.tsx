@@ -3,12 +3,10 @@ import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import {hashes} from "../typescript/SavedHashes";
-import debug from "../typescript/DEBUG";
+import {apiUrl} from "../index";
 
 
 let timeWaster = "‍";
-
-let apiUrl = debug ? 'http://localhost:3001' : 'http://208.102.191.33:3001';
 
 function intersperse(str: string, amount: () => number): string {
     return str.split('').reduce((acc, cur,) => {
@@ -93,7 +91,7 @@ function Login() {
                 allConsoleTextIdx++;
             }
             setConsoleText(consoleText);
-        }, 0); // CHANGE TO 0 FOR DEBUGGING
+        }, 10); // CHANGE TO 0 FOR DEBUGGING
     }, [setCookie, cursorOffset]);
     return (
         <div className="App">

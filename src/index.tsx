@@ -11,6 +11,9 @@ import {CookiesProvider} from "react-cookie";
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
+export const apiUrl = '0.0.0.0:3001';
+
 root.render(
     <React.StrictMode>
         <CookiesProvider>

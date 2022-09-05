@@ -4,14 +4,8 @@ import "../CSS/glitch.scss";
 import "../CSS/OS.scss";
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
-import debug from "../typescript/DEBUG";
 import hashes from "../typescript/SavedHashes";
-
-
-// this will be the "main hub": where all of the puzzles are stored, as well as the completion state
-// TODO: add puzzles
-
-let apiUrl = debug ? 'http://localhost:3001' : 'http://208.102.191.33:3001';
+import {apiUrl} from "../index";
 
 let chatMessage = "";
 
