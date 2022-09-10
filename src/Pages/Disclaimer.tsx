@@ -10,6 +10,8 @@ export default function Disclaimer() {
                 should one by that name exist in the real world. Any resemblance to real persons, living or dead, is
                 purely coincidental.<br/><br/>
                 All names on this website have been randomly generated, and are not intended to be real.
+                <br/>
+                All IP addresses on this website are outside of the range of any real IP addresses.
                 <br/><br/>
                 For comments, concerns, or more (accessibility questions, want a randomly changed name changed, etc.)
                 contact <a href="mailto:bnewman@oberlin.edu">bnewman@oberlin.edu</a>

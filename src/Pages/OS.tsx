@@ -4,7 +4,7 @@ import "../CSS/glitch.scss";
 import "../CSS/OS.scss";
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
-import hashes from "../typescript/SavedHashes";
+import {hashes} from "../typescript/consts";
 import {apiUrl} from "../index";
 
 let chatMessage = "";

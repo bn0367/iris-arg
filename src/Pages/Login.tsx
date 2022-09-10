@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import '../CSS/Login.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
-import {hashes} from "../typescript/SavedHashes";
+import {hashes, debug, cOptions} from "../typescript/consts";
 import {apiUrl} from "../index";
-import debug from "../typescript/DEBUG";
 
 
 let timeWaster = "‍";
@@ -62,7 +61,7 @@ const passwordRegex = /^[a-zA-Z0-9 !@#$%^&*]{6,20}$/;
 
 function Login() {
     const [ct, setConsoleText] = useState(consoleText);
-    const [cookies, setCookie, delCookie] = useCookies<string>([]);
+    const [cookies, setCookie, removeCookie] = useCookies<string>([]);
     const [cursorOffset, setCursorOffset] = useState(0);
     useEffect(() => {
         if ('token' in cookies && !verifyRequest) {
@@ -80,11 +79,11 @@ function Login() {
                     verifyRequest = false;
                     window.location.href = '/os';
                 } else {
-                    delCookie('token');
+                    removeCookie('token', cOptions);
                 }
             });
         }
-    }, [cookies, delCookie]);
+    }, [cookies, removeCookie]);
     useEffect(() => {
         setInterval(() => {
             if (allConsoleTextIdx < allConsoleText.length) {
@@ -110,7 +109,11 @@ function Login() {
                            } else if (loginState === 0) {
                                password = text;
                            }
-                           consoleText = allConsoleText + text;
+                           if (loginState === 0 && allConsoleText.includes('EXISTING USER')) {
+                               consoleText = allConsoleText + "*".repeat(password.length);
+                           } else {
+                               consoleText = allConsoleText + text;
+                           }
                            setConsoleText(consoleText as string);
                        }}
                        onSelect={(e) => {
@@ -167,11 +170,11 @@ function Login() {
                                            toast.error(res.message);
                                        } else if ('token' in res) {
                                            // @ts-ignore
-                                           setCookie('user', name, {path: '/'});
+                                           setCookie('user', name, cOptions);
                                            // @ts-ignore
-                                           setCookie(hashes['os'], true, {path: '/'});
+                                           setCookie(hashes['os'], true, cOptions);
                                            // @ts-ignore
-                                           setCookie('token', res.token, {path: '/', maxAge: 60 * 60 * 24});
+                                           setCookie('token', res.token, {...cOptions, maxAge: 60 * 60 * 24});
                                            window.location.href = '/os';
                                        } else {
                                            toast.error("An unknown error occurred");

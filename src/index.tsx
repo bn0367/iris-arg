@@ -7,7 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./Pages/Login";
 import FourZeroFour from "./Pages/FourZeroFour";
 import {CookiesProvider} from "react-cookie";
-import debug from "./typescript/DEBUG";
+import {debug} from "./typescript/consts";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
