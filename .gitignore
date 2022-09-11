@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea
+arg-backend/node_modules
+
+*.css
+*.css.map
+
+arg-backendarg-db
+
+arg-backend/.idea
