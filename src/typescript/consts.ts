@@ -1,7 +1,7 @@
 export const seed = cyrb128("supersecretseed");
 export const random = mulberry32(seed[0]);
 
-export const debug = 1;
+export const debug = 0;
 
 export const hashes: { [key: string]: string } = {
     'os': "908cb77f76ca26a648e01bdbc2ee184be15ebd6de95d709849345dcc4abb19e7", // sha256 of 'irisospage'
