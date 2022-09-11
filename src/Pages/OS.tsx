@@ -111,7 +111,11 @@ function OS() {
                 <div className={'window'}>
                     <p className={'title message'}>SYSTEM LOGS</p>
                     <hr className={'line'}/>
-                    <div className={'fbutton'}>ACCESS</div>
+                    <div className={'fbutton'} onClick={() => {
+                        setCookie(hashes['system-logs'], true);
+                        window.location.href = '/system-logs';
+                    }}>ACCESS
+                    </div>
                 </div>
                 <div className={'window'}>
                     <p className={'title message'}>OPERATION MANUALS</p>

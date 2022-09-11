@@ -51,7 +51,7 @@ function OSEmployees() {
                                         document.getElementById(`modal${index}`)?.classList.remove('hidden');
                                         setTimeout(() => {
                                             document.getElementById(`modal${index}`)?.classList.remove('animwindow');
-                                        }, 2000);
+                                        }, 1000);
                                     }
                                 }}>
                                     <td>{employee.name}</td>
@@ -68,11 +68,13 @@ function OSEmployees() {
                     {employees.map((employee, index) => {
                         return (
                             <div key={index} className={'window hidden'} id={`modal${index}`}>
-                                <p className={'title'}>{employee.name}</p>
+                                <p className={'title'}>{employee.name} [ID {employee.id}]</p>
                                 <img src={'images/picture.png'} alt={'default profile'}
                                      className={'profile'}/>
                                 <br/>
                                 <p className={'message'}>Last Login: {employee["access-date"]}</p>
+                                <p className={'message'}>Position: {employee.position}</p>
+                                <p className={'message'}>Internal IP: {employee.ip}</p>
                                 <div className={'fbutton close'} onClick={() => {
                                     document.getElementById(`modal${index}`)?.classList.remove('modal');
                                     document.getElementById(`modal${index}`)?.classList.remove('animwindow');

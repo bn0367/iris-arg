@@ -9,6 +9,7 @@ import {hashes} from "./typescript/consts";
 import Disclaimer from "./Pages/Disclaimer";
 import {apiUrl} from "./index";
 import Loader from "./Pages/Loader";
+import SystemLogs from "./Pages/SystemLogs";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.
@@ -21,6 +22,8 @@ function pages(path: string) {
             return <OSEmployees/>;
         case 'disclaimer':
             return <Disclaimer/>;
+        case 'system-logs':
+            return <SystemLogs/>;
         default:
             return <Login/>;
     }
