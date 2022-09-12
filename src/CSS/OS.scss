@@ -262,6 +262,14 @@ th, td {
   bottom: 0;
   right: 0;
   text-decoration: underline;
+  user-select: none;
+}
+
+.version {
+  position: absolute;
+  bottom: 1em;
+  right: 0;
+  user-select: none;
 }
 
 .animwindow {

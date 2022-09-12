@@ -50,7 +50,7 @@ function OS() {
         <>
             <div className={'chatarea'}>
                 <div className={'chat window'}>
-                    <p className={'title message chattitle'}>CHAT</p>
+                    <p className={'title message chattitle'}>EMPLOYEE CHAT</p>
                     <div className={'messages'}>
                         {Array.apply(null, Array(messages.length > 1 ? 0 : 1)).map((_, i) => {
                             return <div className={'message'} key={history - i}>&nbsp;</div>

@@ -203,7 +203,7 @@ app.post('/api/chat/send', async (req, res) => {
 });
 
 
-let server = (DEBUG ? http : https).createServer(DEBUG ? {} : {
+(DEBUG ? http : https).createServer(DEBUG ? {} : {
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
 }, app).listen(port, () => console.log(`Listening on port ${port}`));
