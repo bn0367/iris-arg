@@ -6,7 +6,7 @@ export const debug = 0;
 export const hashes: { [key: string]: string } = {
     'os': "908cb77f76ca26a648e01bdbc2ee184be15ebd6de95d709849345dcc4abb19e7", // sha256 of 'irisospage'
     'os-employees': "caa7f0d861583f10e3f2aee39c047a388864c105f17d5710769e40a2dd4065d1", // sha256 of 'osemployeespage'
-    'system-logs': "361154e8dc5a950717c560259da23b99326767ba1209bade9902c58031bb7334"
+    'system-logs': "361154e8dc5a950717c560259da23b99326767ba1209bade9902c58031bb7334", // sha256 of 'systemlogspage'
 };
 
 export const reverseObject = (obj: { [key: string]: string }) => {

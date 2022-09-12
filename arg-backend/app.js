@@ -14,8 +14,8 @@ const port = 3001;
 
 const SALT_ROUNDS = 10;
 const TOKEN_EXPIRY = '24h';
-const HISTORY_LIMIT = 10;
-const CHAT_COOLDOWN = 5000;
+const HISTORY_LIMIT = 20;
+const CHAT_COOLDOWN = 1;
 const CHAT_MESSAGE_LIMIT = 128;
 
 const DEBUG = true;
@@ -184,7 +184,7 @@ app.post('/api/chat/send', async (req, res) => {
         } else {
             const user = decoded.user;
             if (chat_history.find(item => item.user === user && item.time > Date.now() - CHAT_COOLDOWN)) {
-                res.status(400).send({"message": "You can only send one message every 5 seconds"});
+                res.status(400).send({"message": `You can only send one message every ${Math.floor(CHAT_COOLDOWN / 1000)} seconds`});
                 return;
             }
             if (message.length > CHAT_MESSAGE_LIMIT) {

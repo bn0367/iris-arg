@@ -6,17 +6,20 @@ import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import {hashes} from "../typescript/consts";
 import {apiUrl} from "../index";
+import _ from "lodash";
 
 let chatMessage = "";
+
+let history = 20;
+let chatRefreshTime = 1000;
 
 function OS() {
     const [ct, setChatText] = useState("");
     const [cookies, setCookie,] = useCookies();
     const [cursorOffset, setCursorOffset] = useState(0);
     const [messages, setMessages] = useState([]);
-
     useEffect(() => {
-        let interval = setInterval(async () => {
+        const f = async () => {
             const res = await fetch(apiUrl + "/api/chat/poll", {
                 method: "post",
                 headers: {
@@ -25,20 +28,32 @@ function OS() {
                 }
             });
             const data = await res.json();
-            if (data.length > 0) {
+            if (!_.isEqual(data, messages) || data.length !== messages.length) {
                 setMessages(data);
+                let chat = document.getElementsByClassName("messages")[0];
+                chat.scrollTop = chat.scrollHeight + chat.scrollTop;
             }
-        }, 1000);
-        return () => clearInterval(interval);
-    });
+
+
+        }
+        f().then(() => {
+        });
+        const interval = setInterval(() => {
+            f().then(() => {
+            });
+        }, chatRefreshTime);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [messages]);
     return (
         <>
             <div className={'chatarea'}>
                 <div className={'chat window'}>
-                    <p className={'title message'}>CHAT</p>
+                    <p className={'title message chattitle'}>CHAT</p>
                     <div className={'messages'}>
-                        {Array.apply(null, Array(10 - messages.length)).map((_, i) => {
-                            return <div className={'message'} key={10 - i}>&nbsp;</div>
+                        {Array.apply(null, Array(messages.length > 1 ? 0 : 1)).map((_, i) => {
+                            return <div className={'message'} key={history - i}>&nbsp;</div>
                         })}
                         {messages.map((message, index) => {
                             return <div key={index}
@@ -122,8 +137,12 @@ function OS() {
                     <hr className={'line'}/>
                     <div className={'fbutton'}>READ</div>
                 </div>
+                <div className={'window'}>
+                    <p className={'title message'}>REACTOR CONTROLS</p>
+                    <hr className={'line'}/>
+                    <div className={'fbutton'}>OPERATE</div>
+                </div>
                 <div className={'window reactor'}><h1 className={'critical pulse'}>REACTOR STATUS: OFFLINE</h1></div>
-
             </div>
         </>
     );
