@@ -9,6 +9,7 @@ export const hashes: { [key: string]: string } = {
     'os': "908cb77f76ca26a648e01bdbc2ee184be15ebd6de95d709849345dcc4abb19e7", // sha256 of 'irisospage'
     'os-employees': "caa7f0d861583f10e3f2aee39c047a388864c105f17d5710769e40a2dd4065d1", // sha256 of 'osemployeespage'
     'system-logs': "361154e8dc5a950717c560259da23b99326767ba1209bade9902c58031bb7334", // sha256 of 'systemlogspage'
+    'manuals': "484986e0307009ee715c4f45fe908cf0519cf7d751b06f6ce41c28c447a4000c", // sha256 of 'manualspage'
 };
 
 export const reverseObject = (obj: { [key: string]: string }) => {
@@ -50,14 +51,6 @@ export const employees = [
     {'name': "Dahlia Gilmore", 'position': 'Employee', 'access-date': '1973-02-24'},
 ] as any[];
 
-export const logs = [] as string[];
-let prevTime = start.getTime();
-for (let i = 0; i < 100; i++) {
-    let time = new Date(prevTime - random()
-        * 1000 * 60 * 60);
-    prevTime = time.getTime();
-    logs.push(randomSystemLog(time, 'test'));
-}
 
 let order = shuffleRange(0, employees.length - 1);
 let ipEnds = shuffleRange(0, 255);
@@ -69,6 +62,17 @@ for (let i = 0; i < employees.length; i++) {
 
 employees[OUTLIER]['access-date'] = '1973-02-25';
 employees[OUTLIER]['ip'] = '192.168.0.' + ipEnds[employees.length - 1];
+
+export const logs = [] as string[];
+let prevTime = start.getTime();
+for (let i = 0; i < 100; i++) {
+    let time = new Date(prevTime - random()
+        * 1000 * 60 * 60);
+    prevTime = time.getTime();
+    logs.push(randomSystemLog(time, employees[random() * employees.length | 0].ip));
+}
+
+logs.splice(random() * logs.length | 0, 0, randomSystemLog(new Date(1973, 2, 1,), employees[OUTLIER].ip, 'Suspicious activity detected'));
 
 export const cOptions = {
     path: '/',
@@ -87,6 +91,7 @@ function shuffleRange(start: number, end: number) {
     return arr;
 }
 
+// this function and the next are to have proper fixed-seed random numbers
 function cyrb128(str: string) {
     let h1 = 1779033703, h2 = 3144134277,
         h3 = 1013904242, h4 = 2773480762;
@@ -114,17 +119,24 @@ function mulberry32(a: number) {
 }
 
 
-function randomSystemLog(time: Date, addr: string) {
-    let ip = '192.168.0.' + random().toString().slice(3, 5);
-    return time.toISOString() + ' ' + ip + ' ' + randomSystemLogMessage() + ' ' + addr;
+function randomSystemLog(time: Date, addr: string, message?: string) {
+    let m = message ?? randomSystemLogMessage();
+    let s = '[' + time.toISOString()
+        .replace(/T/, ' ')
+        .replace(/\..+/, '') + ']\t' + m;
+    s = s.padEnd(60, ' ') + addr;
+    return s;
 }
 
 function randomSystemLogMessage() {
-    let messages = [
-        'Failed password from',
-        'Successful password for',
-        'New login from',
-
+    let messages = [ // i don't feel like making weighted random so i'm weighting it myself
+        'Authentication failure for',
+        'New login location for',
+        'Password changed for',
+        'Reactor restarted for maintenance by ',
+        'Reactor levels changed by ',
+        'Control software updated by ',
+        'Control software updated by ',
     ]
     return messages[Math.floor(random() * messages.length)];
 }

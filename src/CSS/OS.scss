@@ -257,7 +257,29 @@ th, td {
   max-width: 100%;
 }
 
+.cornermessage {
+  z-index: 999;
+  color: white;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
 .disclaimer {
+  position: absolute;
+  bottom: 1em;
+  right: 0;
+  text-decoration: underline;
+  user-select: none;
+}
+
+.home {
+  position: absolute;
+  bottom: 2em;
+  right: 0;
+  text-decoration: underline;
+  user-select: none;
+}
+
+.notworking {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -267,7 +289,7 @@ th, td {
 
 .version {
   position: absolute;
-  bottom: 1em;
+  bottom: 3em;
   right: 0;
   user-select: none;
 }
@@ -363,4 +385,15 @@ th, td {
   overflow-y: scroll;
   flex-direction: column-reverse;
   z-index: 999;
+  scroll-behavior: smooth;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.disabled:hover {
+  background-color: transparent;
+  color: #fff;
 }

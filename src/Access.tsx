@@ -10,6 +10,8 @@ import Disclaimer from "./Pages/Disclaimer";
 import {apiUrl} from "./index";
 import Loader from "./Pages/Loader";
 import SystemLogs from "./Pages/SystemLogs";
+import Manuals from "./Pages/Manuals";
+import NothingWorks from "./Pages/NothingWorks";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.
@@ -24,6 +26,10 @@ function pages(path: string) {
             return <Disclaimer/>;
         case 'system-logs':
             return <SystemLogs/>;
+        case 'manuals':
+            return <Manuals/>;
+        case 'nothing-works':
+            return <NothingWorks/>;
         default:
             return <Login/>;
     }
@@ -66,7 +72,7 @@ function Access() {
     }, [cookies, path]);
     if (path === undefined) {
         return <FourZeroFour/>;
-    } else if (path === 'disclaimer') { // disclaimer is always public
+    } else if (path === 'disclaimer' || path === 'nothing-works') { // disclaimer is always public
         return pages(path);
     }
 

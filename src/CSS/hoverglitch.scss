@@ -1,0 +1,55 @@
+// adapted from https://codepen.io/kkhenriquez/pen/PGvmjm
+
+.hoverglitch {
+  color: white;
+  grid-template-columns: 1fr;
+  display: grid;
+
+  &:before, &:after {
+    content: attr(data-text);
+    grid-row-start: 1;
+    grid-column-start: 1;
+  }
+
+  &:after {
+    color: #f0f;
+    z-index: 0;
+    transform: translate(-100%, 0);
+  }
+
+  &:before {
+    z-index: 1;
+  }
+}
+
+.hoverglitch:hover {
+  &:before {
+    animation: hglitch .2s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+
+  &:after {
+    animation: hglitch .2s cubic-bezier(.25, .46, .45, .94) reverse both infinite
+  }
+}
+
+
+@keyframes hglitch {
+  0% {
+    transform: translate(0)
+  }
+  20% {
+    transform: translate(-2px, 2px)
+  }
+  40% {
+    transform: translate(-2px, -2px)
+  }
+  60% {
+    transform: translate(2px, 2px)
+  }
+  80% {
+    transform: translate(2px, -2px)
+  }
+  to {
+    transform: translate(0)
+  }
+}

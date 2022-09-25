@@ -14,7 +14,8 @@ export default function Disclaimer() {
                 All IP addresses on this website are outside of the range of any real IP addresses.
                 <br/><br/>
                 For comments, concerns, or more (accessibility questions, want a randomly changed name changed, etc.)
-                contact <a href="mailto:bnewman@oberlin.edu">bnewman@oberlin.edu</a>
+                contact <a href="mailto:bnewman@oberlin.edu">bnewman@oberlin.edu</a><br/><br/>
+                <a href={"/nothing-works"}>Troubleshooting guide</a>
             </p>
         </div>
     );

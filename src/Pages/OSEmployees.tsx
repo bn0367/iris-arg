@@ -32,6 +32,7 @@ function OSEmployees() {
             <div className={'fill window'}>
                 <p className={'title message'}>EMPLOYEE DIRECTORY</p>
                 <hr className={'line'}/>
+                <br/><br/>
                 <div className={'messages'}>
                     <table className={'directory'}>
                         <thead>

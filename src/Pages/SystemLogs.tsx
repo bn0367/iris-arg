@@ -1,6 +1,6 @@
 import React from "react";
 import "../CSS/OS.scss";
-import '../CSS/glitch.scss';
+import '../CSS/hoverglitch.scss'
 import {logs} from "../typescript/consts";
 
 function SystemLogs() {
@@ -8,13 +8,16 @@ function SystemLogs() {
         <>
             <div className={'fbutton corner'} onClick={() => window.location.href = '/os'}>BACK</div>
             <div className="window fill" style={{padding: 0}}>
-                <p className="title message">SYSTEM LOGS</p>
                 <hr className="line"/>
+                <br/>
                 <table className={'messages'}>
                     <tbody>
                     {logs.map((log, index) => {
+                        let c = log.includes('Suspicious') ? ' hoverglitch' : '';
                         return (
-                            <tr className={'log'} key={index}><p className={'message'}>{log}</p></tr>
+                            <tr key={index} className={'log'}>
+                                <td className={"message" + c} data-text={log}>{c === '' ? log : ''}</td>
+                            </tr>
                         )
                     })}
                     </tbody>

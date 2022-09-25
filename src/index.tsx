@@ -24,10 +24,14 @@ root.render(
                     <Route path={"/404"} element={<FourZeroFour/>}/>
                     <Route path={":path"} element={<Access/>}/>
                 </Routes>
-                <p className={'disclaimer message'} onClick={() => window.location.href = '/disclaimer'}
+                <p className={'home message cornermessage'} onClick={() => window.location.href = '/'}
+                   style={{cursor: 'pointer'}}>home</p>
+                <p className={'notworking message cornermessage'} onClick={() => window.location.href = '/nothing-works'}
+                   style={{cursor: 'pointer'}}>not working?</p>
+                <p className={'disclaimer message cornermessage'} onClick={() => window.location.href = '/disclaimer'}
                    style={{cursor: 'pointer'}}>disclaimer</p>
                 <br/>
-                <p className={'version message'}>{version}</p>
+                <p className={'version message cornermessage'}>v{version}</p>
             </BrowserRouter>
         </CookiesProvider>
     </React.StrictMode>
