@@ -1,17 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import "../CSS/glitch.scss";
 import "../CSS/OS.scss";
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
-import {hashes} from "../typescript/consts";
+import {glitchshader, hashes} from "../typescript/consts";
 import {apiUrl} from "../index";
 import _ from "lodash";
+import {Canvas, useFrame} from "@react-three/fiber";
 
 let chatMessage = "";
 
 let history = 20;
 let chatRefreshTime = 1000;
+
+function RefMesh({children}: any) {
+    const refMesh = useRef();
+
+    useFrame(() => {
+        if (refMesh.current) {
+            // @ts-ignore
+            if (refMesh.current.material.uniforms.time) {
+                // @ts-ignore
+                refMesh.current.material.uniforms.time.value += 0.01;
+            } else {
+                // @ts-ignore
+                refMesh.current.material.uniforms.time = {value: 0};
+            }
+            // @ts-ignore
+            refMesh.current.material.uniforms.resolution = {value: [window.innerWidth, window.innerHeight]};
+        }
+    });
+    return (<mesh ref={refMesh}>{children}</mesh>);
+}
 
 function OS() {
     const [ct, setChatText] = useState("");
@@ -48,6 +69,13 @@ function OS() {
     }, [messages]);
     return (
         <>
+            <Canvas className={'shader'} style={{position: "absolute"}}>
+                <ambientLight/>
+                <RefMesh uniforms={{time: {value: 0}}}>
+                    <planeGeometry args={[100, 100]}/>
+                    <shaderMaterial fragmentShader={glitchshader}/>
+                </RefMesh>
+            </Canvas>
             <div className={'chatarea'}>
                 <div className={'chat window'}>
                     <p className={'title message chattitle'}>EMPLOYEE CHAT</p>
@@ -133,11 +161,11 @@ function OS() {
                     </div>
                 </div>
                 <div className={'window'}>
-                    <p className={'title message'}>OPERATION MANUALS</p>
+                    <p className={'title message'}>EMPLOYEE FILES</p>
                     <hr className={'line'}/>
                     <div className={'fbutton'} onClick={() => {
-                        setCookie(hashes['manuals'], true);
-                        window.location.href = '/manuals';
+                        setCookie(hashes['files'], true);
+                        window.location.href = '/files';
                     }}>READ
                     </div>
                 </div>
