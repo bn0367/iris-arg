@@ -69,7 +69,7 @@ function OS() {
     }, [messages]);
     return (
         <>
-            <Canvas className={'shader'} style={{position: "absolute"}}>
+            <Canvas className={'shader'} style={{position: "absolute", pointerEvents: "none"}}>
                 <ambientLight/>
                 <RefMesh uniforms={{time: {value: 0}}}>
                     <planeGeometry args={[100, 100]}/>
