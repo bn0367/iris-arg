@@ -26,7 +26,8 @@ root.render(
                 </Routes>
                 <p className={'home message cornermessage'} onClick={() => window.location.href = '/'}
                    style={{cursor: 'pointer'}}>home</p>
-                <p className={'notworking message cornermessage'} onClick={() => window.location.href = '/nothing-works'}
+                <p className={'notworking message cornermessage'}
+                   onClick={() => window.location.href = '/nothing-works'}
                    style={{cursor: 'pointer'}}>not working?</p>
                 <p className={'disclaimer message cornermessage'} onClick={() => window.location.href = '/disclaimer'}
                    style={{cursor: 'pointer'}}>disclaimer</p>

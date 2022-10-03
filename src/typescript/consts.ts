@@ -1,3 +1,5 @@
+const rawshader = require('../shaders/glitch.glsl');
+
 export const seed = cyrb128("supersecretseed");
 export const random = mulberry32(seed[0]);
 
@@ -9,7 +11,7 @@ export const hashes: { [key: string]: string } = {
     'os': "908cb77f76ca26a648e01bdbc2ee184be15ebd6de95d709849345dcc4abb19e7", // sha256 of 'irisospage'
     'os-employees': "caa7f0d861583f10e3f2aee39c047a388864c105f17d5710769e40a2dd4065d1", // sha256 of 'osemployeespage'
     'system-logs': "361154e8dc5a950717c560259da23b99326767ba1209bade9902c58031bb7334", // sha256 of 'systemlogspage'
-    'manuals': "484986e0307009ee715c4f45fe908cf0519cf7d751b06f6ce41c28c447a4000c", // sha256 of 'manualspage'
+    'files': "484986e0307009ee715c4f45fe908cf0519cf7d751b06f6ce41c28c447a4000c", // sha256 of 'manualspage'
 };
 
 export const reverseObject = (obj: { [key: string]: string }) => {
@@ -21,6 +23,7 @@ export const reverseObject = (obj: { [key: string]: string }) => {
 }
 
 export const OUTLIER = 4;
+export const WATCHER = 22;
 
 export const start = new Date(1973, 2, 1);
 export const end = new Date(1973, 2, 7);
@@ -30,7 +33,7 @@ export const employees = [
     {'name': "Taniya Lucero", 'position': 'Employee', 'access-date': '1973-02-24'},
     {'name': "Sophie Crosby", 'position': 'Employee', 'access-date': '1973-02-24'},
     {'name': "Alonso Shepard", 'position': 'Employee', 'access-date': '1973-02-24'},
-    {'name': "Corbin Navarro", 'position': 'Employee', 'access-date': '1973-02-24'},
+    {'name': "Corbyn Belew", 'position': 'Employee', 'access-date': '1973-02-24'},
     {'name': "Amari Eaton", 'position': 'Employee', 'access-date': '1973-02-24'},
     {'name': "Selah Goodwin", 'position': 'Employee', 'access-date': '1973-02-24'},
     {'name': "Jewel Conway", 'position': 'Employee', 'access-date': '1973-02-24'},
@@ -54,14 +57,19 @@ export const employees = [
 
 let order = shuffleRange(0, employees.length - 1);
 let ipEnds = shuffleRange(0, 255);
+ipEnds.splice(ipEnds.indexOf(98), 1);
+ipEnds.splice(ipEnds.indexOf(131), 1);
 for (let i = 0; i < employees.length; i++) {
     employees[order[i]]['id'] = i;
-    employees[order[i]]['access-date'] = '1973-02-0' + random().toString().slice(3, 4);
+    employees[order[i]]['access-date'] = '1973-02-0' + parseInt((random() * 9).toString());
     employees[order[i]]['ip'] = '192.168.0.' + ipEnds[i];
 }
 
+
 employees[OUTLIER]['access-date'] = '1973-02-25';
-employees[OUTLIER]['ip'] = '192.168.0.' + ipEnds[employees.length - 1];
+employees[OUTLIER]['ip'] = '192.168.0.98';
+employees[WATCHER]['access-date'] = '1973-02-24';
+employees[WATCHER]['ip'] = '192.168.0.131';
 
 export const logs = [] as string[];
 let prevTime = start.getTime();
@@ -140,3 +148,10 @@ function randomSystemLogMessage() {
     ]
     return messages[Math.floor(random() * messages.length)];
 }
+
+export var glitchshader = '';
+fetch(rawshader)
+    .then(r => r.text())
+    .then(text => {
+        glitchshader = text;
+    });

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../CSS/Login.scss';
+import '../CSS/OS.scss';
 import {useCookies} from "react-cookie";
 import toast, {Toaster} from "react-hot-toast";
 import {hashes, debug, cOptions} from "../typescript/consts";
@@ -57,7 +58,6 @@ const passwordRegex = /^[a-zA-Z0-9 !@#$%^&*]{6,20}$/;
 
 // this is the "login" page, where you enter your name and get access to the OS.
 // this page shouldn't ever do much other than display the console text.
-// TODO: spruce up the console text before you enter your name
 
 function Login() {
     const [ct, setConsoleText] = useState(consoleText);

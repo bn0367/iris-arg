@@ -26,7 +26,7 @@ function pages(path: string) {
             return <Disclaimer/>;
         case 'system-logs':
             return <SystemLogs/>;
-        case 'manuals':
+        case 'files':
             return <Manuals/>;
         case 'nothing-works':
             return <NothingWorks/>;
