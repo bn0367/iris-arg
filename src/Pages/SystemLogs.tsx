@@ -8,12 +8,10 @@ function SystemLogs() {
         <>
             <div className={'fbutton corner'} onClick={() => window.location.href = '/os'}>BACK</div>
             <div className="window fill" style={{padding: 0}}>
-                <hr className="line"/>
-                <br/>
                 <table className={'messages'}>
                     <tbody>
                     {logs.map((log, index) => {
-                        let c = log.includes('Suspicious') ? ' hoverglitch' : '';
+                        let c = log.includes('SUSPICIOUS') ? ' hoverglitch' : '';
                         return (
                             <tr key={index} className={'log'}>
                                 <td className={"message" + c} data-text={log}>{c === '' ? log : ''}</td>

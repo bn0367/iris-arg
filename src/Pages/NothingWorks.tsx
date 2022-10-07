@@ -1,10 +1,13 @@
 import React from "react";
 import '../CSS/OS.scss';
+import {useCookies} from "react-cookie";
 
 function NothingWorks() {
+    const [cookies, setCookie, delCookie] = useCookies();
     return (
         <div className="window fill" style={{overflowY: 'hidden'}}>
-            <h1>Nothing working?</h1>
+            <h1>Troubleshooting</h1>
+            <h3>Nothing working?</h3>
             <p style={{whiteSpace: 'pre-line'}}>
                 If nothing is working (i.e. when you hit enter on the login page, nothing happens), try visiting <a
                 href={"https://34.133.38.220:3001"}>the api</a> to make sure your browser is okay with the
@@ -16,6 +19,20 @@ function NothingWorks() {
                 and the plaintext versions are never stored).<br/> In chrome/chromium browsers you may
                 need to click on advanced, and then click on proceed anyway. If you are still having issues, please
                 contact <a href={"bnewman@oberlin.edu"}>bnewman@oberlin.edu</a>.
+            </p>
+            <h3>Website running slow?</h3>
+            <p style={{whiteSpace: 'pre-line'}}>
+                If the website is running slow, if you can, turn on hardware acceleration in your browser. If that
+                doesn't help/you don't want to, <a href={"#"} onClick={
+                () => {
+                    if ("noshaders" in cookies) {
+                        delCookie("noshaders");
+                    } else {
+                        setCookie("noshaders", "");
+                    }
+                    window.location.reload();
+                }
+            }>toggle shaders</a>.
             </p>
         </div>
     );

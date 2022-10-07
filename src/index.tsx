@@ -28,7 +28,7 @@ root.render(
                    style={{cursor: 'pointer'}}>home</p>
                 <p className={'notworking message cornermessage'}
                    onClick={() => window.location.href = '/nothing-works'}
-                   style={{cursor: 'pointer'}}>not working?</p>
+                   style={{cursor: 'pointer'}}>troubleshooting</p>
                 <p className={'disclaimer message cornermessage'} onClick={() => window.location.href = '/disclaimer'}
                    style={{cursor: 'pointer'}}>disclaimer</p>
                 <br/>

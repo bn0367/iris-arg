@@ -375,6 +375,7 @@ th, td {
 .log {
   width: 100%;
   cursor: default;
+  height: 3em;
 }
 
 .log > p {
@@ -384,7 +385,7 @@ th, td {
 
 .messages {
   width: 100%;
-  margin-top: -2.5%;
+  //margin-top: -2.5%;
   padding: 0;
   overflow-y: scroll;
   flex-direction: column-reverse;
@@ -425,4 +426,10 @@ th, td {
   min-width: 100%;
   min-height: 100%;
   pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  min-width: 100%;
+  background-color: #000;
 }
