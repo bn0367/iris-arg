@@ -71,11 +71,9 @@ employees[WATCHER]['access-date'] = '1973-02-24';
 employees[WATCHER]['ip'] = '192.168.0.131';
 
 export const logs = [] as string[];
-let prevTime = start;
 console.log(start.toISOString());
 for (let i = 0; i < 100; i++) {
     let time = new Date(Date.parse('1973-02-01T00:00:00.000Z') + random() * (end.getTime() - start.getTime()));
-    prevTime = time;
     logs.push(randomSystemLog(time, employees[random() * employees.length | 0].ip));
 }
 
