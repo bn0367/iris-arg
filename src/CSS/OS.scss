@@ -484,7 +484,28 @@ th, td {
 }
 
 .emergencyinput {
-    display: flex;
-    width: 100%;
-    font-size: 2em;
+  display: flex;
+  width: 100%;
+  font-size: 2em;
+  border: 0.1em solid #fff;
+  border-radius: 0.1em;
+}
+
+.blipout {
+  animation: blipout 3s;
+}
+
+@keyframes blipout {
+  0% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1, 0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0, 0.1);
+  }
 }

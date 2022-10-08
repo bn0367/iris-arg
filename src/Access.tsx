@@ -14,14 +14,14 @@ import Files from "./Pages/Files";
 import NothingWorks from "./Pages/NothingWorks";
 import {Canvas, useFrame} from "@react-three/fiber";
 import Reactor from "./Pages/Reactor";
-import Blank from "./Pages/Blank";
+import ConnectionLost from "./Pages/ConnectionLost";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.
 
 function pages(path: string, finished: boolean) {
     if (finished) {
-        return <Blank/>;
+        return <ConnectionLost/>;
     }
     switch (path.toLowerCase()) {
         case "os":
@@ -97,6 +97,7 @@ function Access() {
     const [page, setPage] = React.useState(<Loader/>);
     const {path} = useParams();
     let shadersEnabled = !("noshaders" in cookies);
+    let finished = "finished" in cookies;
     useEffect(() => {
         fetch(apiUrl + '/api/token', {
             method: 'POST',
@@ -107,6 +108,10 @@ function Access() {
                 token: (cookies as any).token
             }),
         }).then(res => res.json()).then(res => {
+            if (finished) {
+                setPage(<ConnectionLost/>);
+                return;
+            }
             if (path === undefined) {
                 setPage(shaderWrap(<Login/>, shadersEnabled));
                 return;
@@ -114,7 +119,7 @@ function Access() {
             if ('user' in res) {
                 if (path in hashes) {
                     if (hashes[path] in cookies) {
-                        setPage(shaderWrap(pages(path as string, 'finished' in cookies), shadersEnabled));
+                        setPage(shaderWrap(pages(path as string, finished), shadersEnabled));
                     } else if (path !== 'os') {
                         setPage(shaderWrap(<FourZeroFour/>, shadersEnabled));
                     } else {

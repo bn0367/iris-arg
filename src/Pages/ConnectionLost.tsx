@@ -8,7 +8,7 @@ import "../CSS/glitch.scss"; // glitch effect from https://codepen.io/mattgrossw
 function FourZeroFour() {
     return (
         <div>
-            <h2 style={{color: "#1e4474"}} className={"text glitch layers"} data-text={"404"}>404</h2>
+            <h2 className={"text glitch layers"} data-text={"Connection Lost."}>Connection Lost.</h2>
         </div>
     )
 }

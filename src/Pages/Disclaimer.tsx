@@ -3,7 +3,7 @@ import React from "react";
 export default function Disclaimer() {
     return (
         <div className="window fill" style={{overflowY: 'hidden'}}>
-            <h1>Disclaimer</h1>
+            <h1>About this project</h1>
             <h2>This is an ARG.</h2>
             <p style={{whiteSpace: 'pre-line'}}>
                 Any company names referred to on this website are not affiliated with or endorsed by the real companies,
@@ -11,11 +11,17 @@ export default function Disclaimer() {
                 purely coincidental.<br/><br/>
                 All names on this website have been randomly generated, and are not intended to be real.
                 <br/>
-                All IP addresses on this website are outside of the range of any real IP addresses.
+                All IP addresses on this website are outside of the range of any real (public) IP addresses.
                 <br/><br/>
                 For comments, concerns, or more (accessibility questions, want a randomly changed name changed, etc.)
                 contact <a href="mailto:bnewman@oberlin.edu">bnewman@oberlin.edu</a><br/><br/>
                 <a href={"/nothing-works"}>Troubleshooting guide</a>
+            </p>
+            <h1>Credits</h1>
+            <p style={{whiteSpace: 'pre-line'}}>
+                Programming/Design: Ben Newman<br/>
+                Lore: Katie Warren, Evan Tessmer-Tuck<br/>
+                Voice Acting: Liam Hutchings, Leanne O'Donnell<br/>
             </p>
         </div>
     );
