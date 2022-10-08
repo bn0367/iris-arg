@@ -23,7 +23,8 @@ function NothingWorks() {
             <h3>Website running slow?</h3>
             <p style={{whiteSpace: 'pre-line'}}>
                 If the website is running slow, if you can, turn on hardware acceleration in your browser. If that
-                doesn't help/you don't want to, <button type={'button'} className={'link-button'} onClick={
+                doesn't help/you don't want to, {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href={"#"} onClick={
                 () => {
                     if ("noshaders" in cookies) {
                         delCookie("noshaders");
@@ -32,18 +33,19 @@ function NothingWorks() {
                     }
                     window.location.reload();
                 }
-            }>toggle shaders</button>.
+            }>toggle shaders</a>.
             </p>
             <h3>Want to reset progress?</h3>
             <p style={{whiteSpace: 'pre-line'}}>
-                If you want to reset your progress, <button type={'button'} className={'link-button'} onClick={() => {
+                If you want to reset your progress, {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href={"##"} onClick={() => {
                 document.cookie.split(";").forEach((c) => {
                     document.cookie = c
                         .replace(/^ +/, "")
                         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                 });
                 window.location.reload();
-            }}>click here</button>.
+            }}>click here</a>.
             </p>
         </div>
     );
