@@ -132,7 +132,7 @@ function Access() {
                 setPage(shaderWrap(<Login/>, shadersEnabled));
             }
         });
-    }, [cookies, path, shadersEnabled]);
+    }, [cookies, path, shadersEnabled, finished]);
     if (path === undefined) {
         return <FourZeroFour/>;
     } else if (path === 'disclaimer' || path === 'nothing-works') { // disclaimer is always public
