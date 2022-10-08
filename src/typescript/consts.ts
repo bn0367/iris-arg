@@ -202,7 +202,7 @@ void main()
 
     float time2 = mod(time, 32.0);// + modelmat[0].x + modelmat[0].z;
 
-    float GLITCH = rand(vec2(time2 * 0.1, 0.0)) * 0.5 + 0.5;
+    float GLITCH = rand(vec2(time2 * 0.1, 0.0)) * 1.0;
 
     //float rdist = length( (uv - vec2(0.5,0.5))*vec2(aspect, 1.0) )/1.4;
     //GLITCH *= rdist;

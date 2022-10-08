@@ -5,7 +5,7 @@ import Login from "./Pages/Login";
 import FourZeroFour from "./Pages/FourZeroFour";
 import OS from "./Pages/OS";
 import OSEmployees from "./Pages/OSEmployees";
-import {glitchshader, hashes} from "./typescript/consts";
+import {glitchshader, hashes, random} from "./typescript/consts";
 import Disclaimer from "./Pages/Disclaimer";
 import {apiUrl} from "./index";
 import Loader from "./Pages/Loader";
@@ -43,6 +43,9 @@ function pages(path: string, finished: boolean) {
     }
 }
 
+let delay: number = 0;
+let delayMax: number = 10;
+
 function RefMesh({children}: any) {
     const refMesh = useRef();
 
@@ -50,8 +53,13 @@ function RefMesh({children}: any) {
         if (refMesh.current) {
             // @ts-ignore
             if (refMesh.current.material.uniforms.time) {
-                // @ts-ignore
-                refMesh.current.material.uniforms.time.value += 0.01;
+                delay += 1;
+                if (delay >= delayMax) {
+                    // @ts-ignore
+                    refMesh.current.material.uniforms.time.value += 0.01;
+                    delay = 0;
+                    delayMax = Math.floor(random() * 20);
+                }
             } else {
                 // @ts-ignore
                 refMesh.current.material.uniforms.time = {value: 0};
