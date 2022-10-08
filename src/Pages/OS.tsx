@@ -143,9 +143,14 @@ function OS() {
                 <div className={'window'}>
                     <p className={'title message'}>REACTOR CONTROLS</p>
                     <hr className={'line'}/>
-                    <div className={'fbutton disabled'}>OPERATE</div>
+                    <div className={'fbutton'} onClick={() => {
+                        setCookie(hashes['reactor'], true);
+                        window.location.href = '/reactor';
+                    }}>OPERATE
+                    </div>
                 </div>
-                <div className={'window reactor'}><h1 className={'critical pulse'}>REACTOR STATUS: OFFLINE</h1></div>
+                <div className={'window reactor'}><h1 className={'critical pulse'}>REACTOR STATUS: <span
+                    className={'hoverglitch'} data-text={'MALFUNCTIONING'}/></h1></div>
             </div>
         </>
     );

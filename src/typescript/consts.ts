@@ -10,6 +10,7 @@ export const hashes: { [key: string]: string } = {
     'os-employees': "caa7f0d861583f10e3f2aee39c047a388864c105f17d5710769e40a2dd4065d1", // sha256 of 'osemployeespage'
     'system-logs': "361154e8dc5a950717c560259da23b99326767ba1209bade9902c58031bb7334", // sha256 of 'systemlogspage'
     'files': "484986e0307009ee715c4f45fe908cf0519cf7d751b06f6ce41c28c447a4000c", // sha256 of 'manualspage'
+    'reactor': "c6ddc7390e95308b2dd7d29afb7207733e0b3713c3892e5c96ee7a75c7d66105", // sha256 of 'reactoroperation'
 };
 
 export const reverseObject = (obj: { [key: string]: string }) => {

@@ -144,7 +144,9 @@
 }
 
 .critical {
-  color: #ff0000;
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0.25em 0 0.25em 0;
 }
 
 .fbutton {
@@ -428,8 +430,57 @@ th, td {
   pointer-events: none;
 }
 
-.input {
+.search {
   width: 100%;
   min-width: 100%;
   background-color: #000;
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5em;
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0;
+  outline: none;
+}
+
+.search::selection {
+  background-color: #fff;
+  color: #000;
+}
+
+.centered {
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+  font-family: "Bahnschrift", sans-serif;
+}
+
+.slider {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 1em;
+  width: 1em;
+  background: goldenrod;
+}
+
+input[type=range]:focus {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+  width: 5em;
 }

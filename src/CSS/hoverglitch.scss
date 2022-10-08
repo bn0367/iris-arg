@@ -2,8 +2,9 @@
 
 .hoverglitch {
   color: white;
-  grid-template-columns: 1fr;
+  grid-template-columns: 0 0 0 0;
   display: grid;
+  white-space: nowrap;
 
   &:before, &:after {
     content: attr(data-text);
@@ -12,7 +13,7 @@
   }
 
   &:after {
-    color: #f0f;
+    color: #1fad10;
     z-index: 0;
     transform: translate(-100%, 0);
   }

@@ -13,6 +13,7 @@ import SystemLogs from "./Pages/SystemLogs";
 import Files from "./Pages/Files";
 import NothingWorks from "./Pages/NothingWorks";
 import {Canvas, useFrame} from "@react-three/fiber";
+import Reactor from "./Pages/Reactor";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.
@@ -31,6 +32,8 @@ function pages(path: string) {
             return <Files/>;
         case 'nothing-works':
             return <NothingWorks/>;
+        case 'reactor':
+            return <Reactor/>;
         default:
             return <Login/>;
     }
@@ -62,9 +65,8 @@ function shaderWrap(page: any, shader: boolean): ReactElement<any, any> {
             <>
                 {page}
                 <Canvas className={'shader'} style={{position: "absolute", pointerEvents: "none"}}>
-                    <ambientLight/>
                     <RefMesh uniforms={{time: {value: 0}}}>
-                        <planeGeometry args={[100, 100]}/>
+                        <planeGeometry args={[window.innerWidth / 70, window.innerHeight / 70]}/>
                         <shaderMaterial fragmentShader={glitchshader}/>
                     </RefMesh>
                 </Canvas>
@@ -113,7 +115,7 @@ function Access() {
                 setPage(shaderWrap(<Login/>, shadersEnabled));
             }
         });
-    }, [cookies, path]);
+    }, [cookies, path, shadersEnabled]);
     if (path === undefined) {
         return <FourZeroFour/>;
     } else if (path === 'disclaimer' || path === 'nothing-works') { // disclaimer is always public
