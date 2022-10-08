@@ -227,7 +227,7 @@ void main()
 
     uv.y += 0.1 * r3 * GLITCH;
 
-    const int NUM_SAMPLES = 10;
+    const int NUM_SAMPLES = 100;
     const float RCP_NUM_SAMPLES_F = 1.0 / float(NUM_SAMPLES);
 
     vec4 sum = vec4(0.0);

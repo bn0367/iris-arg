@@ -14,11 +14,15 @@ import Files from "./Pages/Files";
 import NothingWorks from "./Pages/NothingWorks";
 import {Canvas, useFrame} from "@react-three/fiber";
 import Reactor from "./Pages/Reactor";
+import Blank from "./Pages/Blank";
 
 // this page isn't a real page, but serves as my own custom router to not let people load pages they don't have access to,
 // even if they know the page url.
 
-function pages(path: string) {
+function pages(path: string, finished: boolean) {
+    if (finished) {
+        return <Blank/>;
+    }
     switch (path.toLowerCase()) {
         case "os":
             return <OS/>;
@@ -102,7 +106,7 @@ function Access() {
             if ('user' in res) {
                 if (path in hashes) {
                     if (hashes[path] in cookies) {
-                        setPage(shaderWrap(pages(path as string), shadersEnabled));
+                        setPage(shaderWrap(pages(path as string, 'finished' in cookies), shadersEnabled));
                     } else if (path !== 'os') {
                         setPage(shaderWrap(<FourZeroFour/>, shadersEnabled));
                     } else {
@@ -119,9 +123,8 @@ function Access() {
     if (path === undefined) {
         return <FourZeroFour/>;
     } else if (path === 'disclaimer' || path === 'nothing-works') { // disclaimer is always public
-        return shaderWrap(pages(path), shadersEnabled);
+        return shaderWrap(pages(path, false), shadersEnabled);
     }
-
     return (page);
 }
 
