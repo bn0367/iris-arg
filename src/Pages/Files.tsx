@@ -65,7 +65,7 @@ function Files() {
             }, random() * 250 * debug ? 0 : 1);
             return () => clearInterval(i);
         }
-    }, [searching, files, progress]);
+    }, [searching, files, progress, search]);
     return (<>
             <div className={'fbutton corner'} onClick={() => window.location.href = '/os'}>BACK</div>
             <div className={'window fill'}>
