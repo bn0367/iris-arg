@@ -342,8 +342,8 @@ th, td {
   align-items: flex-start;
   cursor: pointer;
   user-select: none;
-  max-width: 10%;
-  min-width: 10%;
+  max-width: 15%;
+  min-width: 15%;
   border: 0 solid #fff;
   border-radius: 5em;
 }
@@ -457,34 +457,34 @@ th, td {
   font-family: "Bahnschrift", sans-serif;
 }
 
-.slider {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-}
-
-input[type=range] {
-  -webkit-appearance: none;
-}
-
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: none;
-  height: 1em;
-  width: 1em;
-  background: goldenrod;
-}
-
-input[type=range]:focus {
-  -webkit-appearance: none;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #ccc;
-  width: 5em;
-}
-
 .shutdown {
   font-size: 3em;
+}
+
+.profile-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-size: 2em;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: "a b c" "d e f" "g h i";
+  grid-gap: 6em;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.emergencyinput {
+    display: flex;
+    width: 100%;
+    font-size: 2em;
 }

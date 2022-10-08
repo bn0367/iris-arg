@@ -1,13 +1,17 @@
 import React, {useEffect} from 'react';
 import '../CSS/OS.scss';
 import {debug, random} from "../typescript/consts";
-
-import testing from '../Audio/testing.mp3';
+import c01 from '../Audio/CorbynLog1973-02-01.mp3';
+import c02 from '../Audio/CorbynLog1973-02-02.mp3';
+import c06 from '../Audio/CorbynLog1973-02-06.mp3';
+import c09p1 from '../Audio/CorbynLog1973-02-09p1.mp3';
+import c09p2 from '../Audio/CorbynLog1973-02-09p2.mp3';
+import c25 from '../Audio/CorbynLog1973-02-25.mp3';
 
 function bar(status: number, max: number) {
     let bar = '[';
     for (let i = 0; i < max; i++) {
-        if (i < status) {
+        if (i < Math.floor(status)) {
             bar += '█';
         } else {
             bar += ' ';
@@ -24,13 +28,28 @@ const corruptedFiles = <>
 </>;
 
 const corbynFiles = <>
-    <h2 className={'centered'}>LOG 1973-02-03 BELEW, CORBYN</h2>
-    <audio style={{width: '100%'}} src={testing} controls={true}/>
+    <hr className={'line'}/>
+    <h2>LOG 1973-02-01 BELEW, CORBYN</h2>
+    <audio style={{width: '100%'}} controls={true} src={c01}/>
+    <hr className={'line'}/>
+    <h2>LOG 1973-02-02 BELEW, CORBYN</h2>
+    <audio style={{width: '100%'}} controls={true} src={c02}/>
+    <hr className={'line'}/>
+    <h2>LOG 1973-02-06 BELEW, CORBYN</h2>
+    <audio style={{width: '100%'}} controls={true} src={c06}/>
+    <hr className={'line'}/>
+    <h2>LOG 1973-02-09 BELEW, CORBYN</h2>
+    <audio style={{width: '100%'}} controls={true} src={c09p1}/>
+    <br/>
+    <audio style={{width: '100%'}} controls={true} src={c09p2}/>
+    <hr className={'line'}/>
+    <h2>LOG 1973-02-25 BELEW, CORBYN</h2>
+    <audio style={{width: '100%'}} controls={true} src={c25}/>
+    <hr className={'line'}/>
 </>;
 
 const dahliaFiles = <>
     <h2 className={'centered'}>LOG 1973-02-03 GILMORE, DAHLIA</h2>
-    <audio style={{width: '100%'}} src={testing} controls={true}/>
 </>;
 
 
@@ -43,7 +62,7 @@ function Files() {
         if (searching) {
             let i = setInterval(() => {
                 if (progress < barMax) {
-                    setProgress(p => p + 1);
+                    setProgress(p => p + random() / 10);
                 } else {
                     setSearching(false);
                     setProgress(0);

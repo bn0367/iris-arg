@@ -32,7 +32,6 @@ function OSEmployees() {
             <div className={'fill window'}>
                 <p className={'title message'}>EMPLOYEE DIRECTORY</p>
                 <hr className={'line'}/>
-                <br/><br/>
                 <div className={'messages'}>
                     <table className={'directory'}>
                         <thead>
@@ -69,18 +68,20 @@ function OSEmployees() {
                     {employees.map((employee, index) => {
                         return (
                             <div key={index} className={'window hidden'} id={`modal${index}`}>
-                                <p className={'title'}>{employee.name} [ID {employee.id}]</p>
-                                <img src={'images/picture.png'} alt={'default profile'}
-                                     className={'profile'}/>
-                                <br/>
-                                <p className={'message'}>Last Login: {employee["access-date"]}</p>
-                                <p className={'message'}>Position: {employee.position}</p>
-                                <p className={'message'}>Internal IP: {employee.ip}</p>
-                                <div className={'fbutton close'} onClick={() => {
-                                    document.getElementById(`modal${index}`)?.classList.remove('modal');
-                                    document.getElementById(`modal${index}`)?.classList.remove('animwindow');
-                                    document.getElementById(`modal${index}`)?.classList.add('hidden');
-                                }}>X
+                                <div className={'profile-window'}>
+                                    <p className={'title'}>{employee.name} [ID {employee.id}]</p>
+                                    <img src={'images/picture.png'} alt={'default profile'}
+                                         className={'profile'}/>
+                                    <br/>
+                                    <p className={'message'}>Last Login: {employee["access-date"]}</p>
+                                    <p className={'message'}>Position: {employee.position}</p>
+                                    <p className={'message'}>Internal IP: {employee.ip}</p>
+                                    <div className={'fbutton close'} onClick={() => {
+                                        document.getElementById(`modal${index}`)?.classList.remove('modal');
+                                        document.getElementById(`modal${index}`)?.classList.remove('animwindow');
+                                        document.getElementById(`modal${index}`)?.classList.add('hidden');
+                                    }}>X
+                                    </div>
                                 </div>
                             </div>
                         );

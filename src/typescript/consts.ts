@@ -24,8 +24,8 @@ export const reverseObject = (obj: { [key: string]: string }) => {
 export const OUTLIER = 4;
 export const WATCHER = 22;
 
-export const start = new Date(1973, 2, 1);
-export const end = new Date(1973, 2, 7);
+export const start = new Date(Date.parse('1973-02-01T00:00:00.000Z'));
+export const end = new Date(Date.parse('1973-02-09T00:00:00.000Z'));
 
 export const employees = [
     {'name': "Charlotte Chavez", 'position': 'Employee', 'access-date': '1973-02-24'},
@@ -71,14 +71,25 @@ employees[WATCHER]['access-date'] = '1973-02-24';
 employees[WATCHER]['ip'] = '192.168.0.131';
 
 export const logs = [] as string[];
-let prevTime = start.getTime();
+let prevTime = start;
+console.log(start.toISOString());
 for (let i = 0; i < 100; i++) {
-    let time = new Date(prevTime + random() * 1000 * 60 * 60 * 24);
-    prevTime = time.getTime();
+    let time = new Date(Date.parse('1973-02-01T00:00:00.000Z') + random() * (end.getTime() - start.getTime()));
+    prevTime = time;
     logs.push(randomSystemLog(time, employees[random() * employees.length | 0].ip));
 }
 
-logs.splice(random() * logs.length | 0, 0, randomSystemLog(new Date(1973, 2, 1,), employees[OUTLIER].ip, 'SUSPICIOUS ACTIVITY DETECTED'));
+
+logs.splice(0, 0, randomSystemLog(new Date(Date.parse('1973-02-24T05:17:38.000Z')),
+    employees[OUTLIER].ip, 'SUSPICIOUS ACTIVITY DETECTED'));
+logs.splice(0, 0, randomSystemLog(new Date(Date.parse('1973-02-24T05:16:38.000Z')),
+    employees[WATCHER].ip, 'New login location for'));
+
+logs.sort((a, b) => {
+    let adString = a.split(']')[0].replace('[', '').replace(' ', 'T');
+    let bdString = b.split(']')[0].replace('[', '').replace(' ', 'T');
+    return Date.parse(adString) - Date.parse(bdString);
+});
 
 export const cOptions = {
     path: '/',
@@ -135,7 +146,7 @@ function randomSystemLog(time: Date, addr: string, message?: string) {
 }
 
 function randomSystemLogMessage() {
-    let messages = [ // i don't feel like making weighted random so i'm weighting it myself
+    let messages = [
         'Authentication failure for',
         'New login location for',
         'Password changed for',
