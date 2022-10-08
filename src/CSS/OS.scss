@@ -484,3 +484,17 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ccc;
   width: 5em;
 }
+
+.shutdown {
+  font-size: 3em;
+}
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
