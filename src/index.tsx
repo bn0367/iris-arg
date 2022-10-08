@@ -30,7 +30,7 @@ root.render(
                    onClick={() => window.location.href = '/nothing-works'}
                    style={{cursor: 'pointer'}}>troubleshooting</p>
                 <p className={'disclaimer message cornermessage'} onClick={() => window.location.href = '/disclaimer'}
-                   style={{cursor: 'pointer'}}>disclaimer</p>
+                   style={{cursor: 'pointer'}}>about this</p>
                 <br/>
                 <p className={'version message cornermessage'}>v{version}</p>
             </BrowserRouter>
