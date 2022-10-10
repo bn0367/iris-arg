@@ -49,7 +49,7 @@ const corbynFiles = <>
 </>;
 
 const dahliaFiles = <>
-    <h2 className={'centered'}>LOG 1973-02-03 GILMORE, DAHLIA</h2>
+    <h2 className={'centered'}>OOC: soon™</h2>
 </>;
 
 
