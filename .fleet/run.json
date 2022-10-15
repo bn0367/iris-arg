@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+          "type": "command",
+          "name": "debug",
+          "program": "C:/Program Files/nodejs/npm.cmd",
+          "args": ["run", "start"],
+          "allowParallelRun": false,
+        },
+
+    ]
+}

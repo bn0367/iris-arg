@@ -342,10 +342,18 @@ th, td {
   align-items: flex-start;
   cursor: pointer;
   user-select: none;
-  max-width: 15%;
-  min-width: 15%;
+  max-width: 7em;
+  min-width: 7em;
+  max-height: 7em;
+  min-height: 7em;
   border: 0 solid #fff;
   border-radius: 5em;
+}
+
+.shade {
+  position: absolute;
+  border-radius: 5em;
+  margin-top: 0.4em;
 }
 
 .animwindow > * {
@@ -387,7 +395,6 @@ th, td {
 
 .messages {
   width: 100%;
-  //margin-top: -2.5%;
   padding: 0;
   overflow-y: scroll;
   flex-direction: column-reverse;
@@ -470,7 +477,7 @@ th, td {
   cursor: pointer;
   width: 100%;
   height: 100%;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .controls {

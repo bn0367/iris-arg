@@ -29,16 +29,16 @@ export const end = new Date(Date.parse('1973-02-09T00:00:00.000Z'));
 
 export const employees = [
     {'name': "Charlotte Chavez", 'position': 'Employee'},
-    {'name': "Taniya Lucero", 'position': 'Employee'},
+    {'name': "Taniya Lucero", 'position': 'Intern'},
     {'name': "Sophie Crosby", 'position': 'Employee'},
     {'name': "Alonso Shepard", 'position': 'IT'},
     {'name': "Corbyn Belew", 'position': 'Office Manager'},
     {'name': "Amari Eaton", 'position': 'Employee'},
     {'name': "Allan Williams", 'position': 'Owner'},
-    {'name': "Jewel Conway", 'position': 'Employee'},
+    {'name': "Jewel Conway", 'position': 'Senior Employee'},
     {'name': "Karissa Atkinson", 'position': 'Employee'},
     {'name': "Malakai Barr", 'position': 'Supervisor'},
-    {'name': "Alanna Cain", 'position': 'Employee'},
+    {'name': "Alanna Cain", 'position': 'Temp Employee'},
     {'name': "Lainey Odonnell", 'position': 'Employee'},
     {'name': "Hillary Jarvis", 'position': 'Head of IT'},
     {'name': "Gabrielle Nguyen", 'position': 'Employee'},
@@ -49,7 +49,7 @@ export const employees = [
     {'name': "Shiloh Stephenson", 'position': 'Employee'},
     {'name': "Jimmy Thompson", 'position': 'Head of HR'},
     {'name': "Anabel Farrell", 'position': 'Temp Employee'},
-    {'name': "Mathias Massey", 'position': 'Employee'},
+    {'name': "Mathias Massey", 'position': 'HR'},
     {'name': "Dahlia Gilmore", 'position': 'Intern'},
 ] as any[];
 

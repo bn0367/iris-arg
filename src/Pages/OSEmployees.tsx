@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import '../CSS/OS.scss';
 import '../CSS/glitch.scss';
-import {employees} from "../typescript/consts";
+import {employees, random} from "../typescript/consts";
 
 
 const randomString = (len: number) => {
@@ -70,6 +70,8 @@ function OSEmployees() {
                             <div key={index} className={'window hidden'} id={`modal${index}`}>
                                 <div className={'profile-window'}>
                                     <p className={'title'}>{employee.name} [ID {employee.id}]</p>
+                                    <div className='shade profile'
+                                         style={{background: `rgba(${Math.floor(random() * 255)}, ${Math.floor(random() * 255)}, ${Math.floor(random() * 255)}, 0.5)`}}></div>
                                     <img src={'images/picture.png'} alt={'default profile'}
                                          className={'profile'}/>
                                     <br/>
