@@ -91,7 +91,7 @@ logs.sort((a, b) => {
 
 export const cOptions = {
     path: '/',
-    domain: debug ? '127.0.0.1' : '.irisarg.netlify.app',
+    domain: debug ? '127.0.0.1' : '.irisarg.bn0367.com',
 }
 
 function shuffleRange(start: number, end: number) {

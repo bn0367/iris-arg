@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-export const apiUrl = debug ? 'http://127.0.0.1:3001' : 'https://34.133.38.220:3001';
+export const apiUrl = debug ? 'http://127.0.0.1:3001' : 'https://irisargbackend.bn0367.com/';
 
 root.render(
     <React.StrictMode>
